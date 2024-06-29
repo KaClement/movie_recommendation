@@ -1,0 +1,24 @@
+{%extends 'layout.html'%}
+{% block body%}
+
+    <body class="loginpage"  style="background-image: url('/static/images/movie_wall.jpg');">
+        <div class="form_text"style=" margin:auto; max-width:400px; padding:25px; background-color:black;">
+               
+                    <form action="" method="POST" class="form-signin">
+                        <h1 class="h3 mb-3 fw-normal">Login</h1>
+                           <p> {{form.username.label}}
+                            {{form.username(size=30)}}</p>
+                        
+                            
+                            <p> {{form.password.label}}
+                            {{form.password(size=30)}}</p>
+                        
+
+                        <p type="submit">{{form.submit()}}</p>
+                        </form>
+        
+        </div>
+    </body>
+
+
+{% endblock%}

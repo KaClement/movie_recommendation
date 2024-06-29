@@ -1,0 +1,36 @@
+
+{%extends 'layout.html' %}
+{% block body%}
+<body class="loginpage" style="background-image: url('/static/images/movie_wall.jpg');">
+  
+<form action="/register" method="POST" class="form_text"  style="margin:auto; max-width:400px; padding:20px; background-color:black;">
+    <h1 style="text-align:center;">Register</h1>
+     {{ form.csrf_token }}
+    <p style="color: white;"> {{form.mail.label}}
+         {{form.mail(size=30)}}
+    </p>
+    <p style="color: white;"> {{form.username.label}}
+         {{form.username(size=30)}}
+    </p>
+
+    <p style="color: white;"> {{form.password.label}}
+         {{form.password(size=30)}}
+    </p>
+    <p style="color: white;"> {{form.verify_password.label}}
+         {{form.verify_password(size=30)}}
+    </p>
+
+    
+    <p style="color: white;"> {{form.dateOfBirth.label}}
+         {{form.dateOfBirth(size=30)}}
+    </p>
+    <p style="color: white;"> {{form.favActors.label}}
+     {{form.favActors(size=30)}}
+     </p>
+     <p style="color: white;"> {{form.favDirectors.label}}
+          {{form.favDirectors(size=30)}}
+     </p>
+    <p style="text-align: center;">{{form.submit()}}</p>
+</form>
+</body>
+{% endblock%}

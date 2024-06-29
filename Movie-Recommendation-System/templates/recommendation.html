@@ -1,0 +1,91 @@
+{%extends 'layout.html'%}
+{% block body%}
+<body style="background-color: #394867;">
+    <style>
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3,1fr);
+            grid-gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            
+        }
+    
+        .movie-item {
+            text-align: center;
+        }
+    
+        .movie-image {
+            max-width: 100%;
+            width: 200px; 
+            height: 300px; 
+           
+            height: auto;
+           
+        }
+             .no-poster {
+            width: 200px; 
+            height: 300px; 
+            background-color: grey;
+            color: black;
+            display: flex;
+            max-width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+          .movie-title {
+            margin-top: 10px; /* Add some space between the placeholder and the title */
+        }
+    </style>
+
+    {% if movies_rec %} 
+        <h2>Recommandation for {{session.username}} : </h2>
+        <div class="movie-grid">
+            {% for movie_title in movies_rec %}
+            {% set movie_poster = get_movie_poster(movie_title) %}
+            <div class="movie-item">
+                {% if movie_poster %}
+                <img class="movie-image" src="{{ movie_poster }}" alt="{{ movie_title }} Poster">
+                <div class="movie-title" style="color:white;">{{ movie_title }}</div>
+                {% else %}
+                <div class="no-poster">
+                    <div>No Poster Available</div>
+                    <div  class="movie-title" style="color: black;">{{ movie_title }}</div>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    {%endif%}
+     
+    {%if director_movie_list%}
+        <h2>Based on your favourite actor : </h2>
+            <div class="movie-grid">
+                {% for movie_title in actor_movie_list %}
+                <div class="movie-item">
+                    {% set movie_poster = get_movie_poster(movie_title) %}
+                    <img class="movie-image" src="{{ movie_poster }}" alt="{{ movie_title }} Poster">
+                    <div class="movie-title" style="color:white;">{{ movie_title }}</div>
+                </div>
+                {% endfor %}
+            </div>
+    {%endif%}
+
+    {%if actor_movie_list%}
+        <h2>Based on your favourite director  : </h2>
+            <div class="movie-grid">
+                {% for movie_title in director_movie_list %}
+                <div class="movie-item">
+                    {% set movie_poster = get_movie_poster(movie_title) %}
+                    <img class="movie-image" src="{{ movie_poster }}" alt="{{ movie_title }} Poster">
+                    <div class="movie-title" style="color:white;">{{ movie_title }}</div>
+                </div>
+                {% endfor %}
+            </div>
+    {%endif%}
+</body>
+{% endblock%}

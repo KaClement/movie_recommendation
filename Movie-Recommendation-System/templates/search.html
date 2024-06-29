@@ -1,0 +1,86 @@
+
+{%extends 'layout.html'%}
+{% block body%}
+<body class="search" style="background-color: #394867;">
+    <div>
+
+        <form action="/search" method="POST">
+            {{ form.hidden_tag() }}
+                    <h1>Search a Movie</h1>
+                
+                    <p> {{form.movie.label}}
+                        <br> {{form.movie(size=30)}}
+                    </p>
+                
+                
+                    <p>{{form.search(class="btn btn-primary")}}</p>
+        </form>
+    </div>
+
+{% if description %}
+    <h2 >{{ title }}</h2>
+    <div>
+        <p >Director: {{ director }}</p>
+        <p >Main Actors: {{ actors|join(', ') }}</p>
+        <p >Description: {{ description }}</p>
+        <p>Genre: {{genre_name|join(', ')}}</p>
+        <p >Release Date: {{ release_date }}</p>
+        <p>Average Rating: {{ rating }}</p>
+        <p>Number of submissions : {{ vote_counter}}</p>
+        {% if session.logged_in%}
+            {% if checking_note is not none %}
+                <p>Your rating : {{checking_note}}</p>
+            {% else %}
+                <form method="POST" action="/search" class="form-inline">
+                    <div class="form-group">
+                        {{ form_2.hidden_tag() }}
+                        <label for="mr-2" for="{{ form_2.note.id}}">Rate this movie </label>
+
+                        <input type="text" id="{{ form_2.note.id }}" name="{{ form_2.note.name }}" class="form-control"
+                            placeholder="(0-10)">
+                        {{ form_2.submit(class="btn btn-primary ml-2") }}
+
+                    </div>
+
+                </form>
+            {%endif%}  
+        {%endif%}
+        
+        
+
+
+        <div class="contai_1">
+            <div class="image">
+                <img src="{{poster_url}}" alt="{{title}} Poster">
+            </div>
+            <div class="content">
+                {% if session.logged_in %}
+                <form class="comment-section" method="POST" action="/search">
+                    {{ comment_form.hidden_tag() }}
+            
+                    <label for="comment"> <h4>{{ comment_form.comment.label }}</h4></label><br>
+                    {{ comment_form.comment(class="form-control", id="comment", rows="3", cols="50") }}
+            
+                    <div class="submit-button">
+                        {{ comment_form.add(class="btn btn-primary ml-2") }}
+                    </div>
+                </form>
+                {% endif %}
+                {% if comments %}
+                <div class="comments">
+                    <h4>Reviews:</h4>
+                    <ul>
+                        {% for comment in comments %}
+                        <li>{{ comment }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            
+        </div>    
+    </div>
+{% endif %}
+
+</body>
+{% endblock%}
